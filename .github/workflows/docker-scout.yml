@@ -1,0 +1,21 @@
+name: Docker Scout Scan
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Scan Docker Image for Vulnerabilities
+        uses: docker/scout-action@v1
+        with:
+          image: "debian:latest"  # You can replace this with another public image
+          command: "cves"
